@@ -4,6 +4,7 @@ create table if not exists public.chamados (
 );
 
 alter table public.chamados
+  add column if not exists created_at timestamptz default now(),
   add column if not exists nome text,
   add column if not exists contato text,
   add column if not exists loja text,
@@ -19,6 +20,7 @@ update public.chamados
 set
   nome = coalesce(nome, 'Nao informado'),
   contato = coalesce(contato, 'Nao informado'),
+  created_at = coalesce(created_at, now()),
   loja = coalesce(loja, 'Nao informado'),
   setor = coalesce(setor, 'Nao informado'),
   categoria = coalesce(categoria, 'Outro'),

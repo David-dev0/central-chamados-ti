@@ -105,18 +105,20 @@ async function loadTickets() {
     const session = await getValidSession();
     const params = new URLSearchParams({
       select: "*",
-      order: "created_at.desc",
       limit: "100",
     });
 
-    const response = await fetch(`${SUPABASE_URL}/rest/v1/${TABLE_NAME}?${params}`, {
-      headers: {
-        ...authHeaders(session.access_token),
-        Prefer: "count=exact",
-      },
-    });
+    params.append("order", "created_at.desc");
 
-    const data = await response.json().catch(() => []);
+    let response = await fetchTickets(session.access_token, params);
+    let data = await response.json().catch(() => []);
+
+    if (!response.ok && data.message && data.message.includes("created_at")) {
+      params.delete("order");
+      response = await fetchTickets(session.access_token, params);
+      data = await response.json().catch(() => []);
+      setDiagnostic("A coluna created_at ainda nao existe. Carreguei sem ordenacao; rode o SQL atualizado.", "warning");
+    }
 
     if (!response.ok) {
       throw new Error(data.message || "Nao foi possivel carregar chamados.");
@@ -124,15 +126,26 @@ async function loadTickets() {
 
     tickets = data;
     const visibleCount = getVisibleCount(response, data.length);
-    setDiagnostic(
-      `Conectado como ${session.email || "usuario autenticado"}. Chamados visiveis para este login: ${visibleCount}.`,
-      visibleCount > 0 ? "success" : "warning",
-    );
+    if (!diagnosticBox.classList.contains("warning")) {
+      setDiagnostic(
+        `Conectado como ${session.email || "usuario autenticado"}. Chamados visiveis para este login: ${visibleCount}.`,
+        visibleCount > 0 ? "success" : "warning",
+      );
+    }
     renderTickets();
   } catch (error) {
     setDiagnostic(`Falha ao carregar chamados: ${error.message}`, "error");
     setListMessage(error.message);
   }
+}
+
+function fetchTickets(accessToken, params) {
+  return fetch(`${SUPABASE_URL}/rest/v1/${TABLE_NAME}?${params}`, {
+    headers: {
+      ...authHeaders(accessToken),
+      Prefer: "count=exact",
+    },
+  });
 }
 
 async function updateTicketStatus(id, status) {
