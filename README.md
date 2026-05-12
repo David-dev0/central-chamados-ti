@@ -17,6 +17,10 @@ O arquivo `admin.html` abre um painel privado para consultar chamados do Supabas
 Crie um usuario em **Authentication > Users** no Supabase e execute o SQL atualizado
 para permitir leitura e atualizacao de status para usuarios autenticados.
 
+Para criar o login do painel, va em **Authentication > Users > Add user**,
+informe e-mail e senha e marque **Auto Confirm User**. O login do painel nao e
+o mesmo login usado para entrar no painel administrativo do Supabase.
+
 ## Observacao sobre hospedagem
 
 O Supabase fornece banco, API, autenticacao, storage e edge functions, mas a URL `/rest/v1/`

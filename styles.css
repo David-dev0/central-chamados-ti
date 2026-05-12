@@ -325,9 +325,19 @@ h1 {
 
 .workflow p,
 .status-section p,
-.ticket-list p {
+.ticket-list p,
+.helper-note {
   color: var(--muted);
   line-height: 1.6;
+}
+
+.helper-note {
+  max-width: 720px;
+  border-left: 4px solid var(--accent);
+  padding: 10px 14px;
+  background: rgba(245, 158, 11, 0.1);
+  color: #6d4a05;
+  font-weight: 700;
 }
 
 .ticket-section {
