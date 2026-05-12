@@ -18,7 +18,6 @@ alter table public.chamados
   add column if not exists loja text,
   add column if not exists setor text,
   add column if not exists categoria text,
-  add column if not exists prioridade text,
   add column if not exists titulo text,
   add column if not exists descricao text,
   add column if not exists status text default 'Aberto',
