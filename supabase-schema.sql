@@ -36,3 +36,40 @@ on public.chamados
 for select
 to anon
 using (false);
+
+do $$
+begin
+  if not exists (
+    select 1
+    from pg_policies
+    where schemaname = 'public'
+      and tablename = 'chamados'
+      and policyname = 'Permitir leitura para usuarios autenticados'
+  ) then
+    create policy "Permitir leitura para usuarios autenticados"
+    on public.chamados
+    for select
+    to authenticated
+    using (true);
+  end if;
+end
+$$;
+
+do $$
+begin
+  if not exists (
+    select 1
+    from pg_policies
+    where schemaname = 'public'
+      and tablename = 'chamados'
+      and policyname = 'Permitir atualizar status para usuarios autenticados'
+  ) then
+    create policy "Permitir atualizar status para usuarios autenticados"
+    on public.chamados
+    for update
+    to authenticated
+    using (true)
+    with check (true);
+  end if;
+end
+$$;

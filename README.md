@@ -11,6 +11,12 @@ Site simples para abertura de chamados de suporte por lojas.
 
 O formulario grava na tabela `public.chamados` usando a REST API do Supabase.
 
+## Painel de TI
+
+O arquivo `admin.html` abre um painel privado para consultar chamados do Supabase.
+Crie um usuario em **Authentication > Users** no Supabase e execute o SQL atualizado
+para permitir leitura e atualizacao de status para usuarios autenticados.
+
 ## Observacao sobre hospedagem
 
 O Supabase fornece banco, API, autenticacao, storage e edge functions, mas a URL `/rest/v1/`

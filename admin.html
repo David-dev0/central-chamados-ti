@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Painel TI - Chamados</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="index.html" aria-label="Central de Chamados TI">
+        <span class="brand-mark">TI</span>
+        <span>
+          <strong>Painel TI</strong>
+          <small>Chamados do Supabase</small>
+        </span>
+      </a>
+
+      <nav class="nav admin-nav" aria-label="Menu do painel">
+        <a href="index.html">Site publico</a>
+        <button class="button ghost small-button" type="button" id="refreshButton">Atualizar</button>
+        <button class="button ghost small-button" type="button" id="logoutButton" hidden>Sair</button>
+      </nav>
+    </header>
+
+    <main>
+      <section class="admin-shell">
+        <div class="section-heading">
+          <p class="eyebrow">Area restrita</p>
+          <h1>Painel de chamados</h1>
+          <p>
+            Entre com um usuario criado no Supabase Auth para visualizar e atualizar os chamados
+            recebidos das lojas.
+          </p>
+        </div>
+
+        <form class="ticket-form login-form" id="loginForm">
+          <label>
+            E-mail
+            <input name="email" type="email" autocomplete="email" required />
+          </label>
+          <label>
+            Senha
+            <input name="password" type="password" autocomplete="current-password" required />
+          </label>
+          <div class="form-footer">
+            <p id="loginMessage" role="status" aria-live="polite"></p>
+            <button class="button primary" type="submit">Entrar</button>
+          </div>
+        </form>
+
+        <section class="admin-board" id="adminBoard" hidden>
+          <div class="admin-stats">
+            <article>
+              <span>Abertos</span>
+              <strong id="openCount">0</strong>
+            </article>
+            <article>
+              <span>Em atendimento</span>
+              <strong id="progressCount">0</strong>
+            </article>
+            <article>
+              <span>Resolvidos</span>
+              <strong id="doneCount">0</strong>
+            </article>
+          </div>
+
+          <div class="admin-toolbar">
+            <label>
+              Buscar
+              <input id="searchInput" type="search" placeholder="Nome, loja, titulo ou descricao" />
+            </label>
+            <label>
+              Filtrar status
+              <select id="statusFilter">
+                <option value="">Todos</option>
+                <option>Aberto</option>
+                <option>Em atendimento</option>
+                <option>Resolvido</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="ticket-list admin-ticket-list" id="adminTicketList">
+            <p class="empty">Carregando chamados...</p>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <script src="admin.js"></script>
+  </body>
+</html>

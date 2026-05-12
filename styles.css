@@ -200,6 +200,12 @@ h1 {
   color: var(--text);
 }
 
+.small-button {
+  min-height: 38px;
+  padding: 0 12px;
+  font-size: 14px;
+}
+
 .support-panel {
   border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 8px;
@@ -428,6 +434,78 @@ textarea:focus {
   gap: 12px;
 }
 
+.admin-shell {
+  display: grid;
+  gap: 28px;
+  padding: 52px min(6vw, 72px);
+}
+
+.admin-shell .section-heading {
+  max-width: 760px;
+}
+
+.admin-shell h1 {
+  margin-bottom: 14px;
+  font-size: clamp(36px, 5vw, 58px);
+}
+
+.login-form {
+  max-width: 520px;
+}
+
+.admin-board {
+  display: grid;
+  gap: 18px;
+}
+
+.admin-stats,
+.admin-toolbar {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.admin-stats article {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 18px;
+  background: var(--surface);
+  box-shadow: 0 12px 32px rgba(31, 42, 55, 0.06);
+}
+
+.admin-stats span,
+.admin-stats strong {
+  display: block;
+}
+
+.admin-stats span {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.admin-stats strong {
+  margin-top: 8px;
+  font-size: 34px;
+}
+
+.admin-toolbar {
+  grid-template-columns: minmax(0, 1fr) minmax(180px, 260px);
+  align-items: end;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 16px;
+  background: var(--surface);
+}
+
+.admin-ticket header {
+  align-items: start;
+}
+
+.admin-ticket header select {
+  max-width: 190px;
+}
+
 .ticket-item {
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -506,6 +584,17 @@ footer {
     display: flex;
   }
 
+  .admin-nav {
+    position: static;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border: 0;
+    padding: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
   .hero,
   .ticket-section,
   .status-section {
@@ -518,6 +607,11 @@ footer {
   }
 
   .workflow {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-stats,
+  .admin-toolbar {
     grid-template-columns: 1fr;
   }
 }
