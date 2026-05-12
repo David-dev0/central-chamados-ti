@@ -6,7 +6,7 @@ create table if not exists public.chamados (
   loja text not null,
   setor text not null,
   categoria text not null,
-  prioridade text not null,
+ 
   titulo text not null,
   descricao text not null,
   status text not null default 'Aberto',
