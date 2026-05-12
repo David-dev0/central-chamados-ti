@@ -51,10 +51,7 @@ form.addEventListener("submit", async (event) => {
     setMessage("Chamado enviado com sucesso. O TI ja pode analisar.", "success");
   } catch (error) {
     console.error(error);
-    setMessage(
-      "Nao foi possivel enviar. Confira se a tabela 'chamados' existe no Supabase.",
-      "error",
-    );
+    setMessage(`Nao foi possivel enviar. Detalhe: ${error.message}`, "error");
   } finally {
     submitButton.disabled = false;
     renderTickets();
@@ -74,8 +71,8 @@ async function createTicket(ticket) {
   });
 
   if (!response.ok) {
-    const detail = await response.text();
-    throw new Error(detail || "Erro ao criar chamado.");
+    const detail = await response.json().catch(async () => ({ message: await response.text() }));
+    throw new Error(detail.message || "Erro ao criar chamado.");
   }
 
   return true;
