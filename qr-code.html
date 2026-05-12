@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>QR Code - Chamados TI</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        display: grid;
+        min-height: 100vh;
+        place-items: center;
+        margin: 0;
+        background: #f5f7fb;
+        color: #16202a;
+        font-family: Arial, sans-serif;
+      }
+
+      main {
+        width: min(92vw, 680px);
+        border: 1px solid #dbe2ea;
+        border-radius: 8px;
+        padding: 34px;
+        background: #ffffff;
+        text-align: center;
+      }
+
+      h1 {
+        margin: 0 0 10px;
+        font-size: 36px;
+      }
+
+      p {
+        margin: 0 auto 24px;
+        color: #607083;
+        font-size: 18px;
+        line-height: 1.5;
+      }
+
+      img {
+        width: min(100%, 420px);
+        height: auto;
+      }
+
+      a {
+        display: block;
+        margin-top: 18px;
+        color: #0f766e;
+        font-weight: 700;
+        word-break: break-all;
+      }
+
+      @media print {
+        body {
+          background: #ffffff;
+        }
+
+        main {
+          border: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Chamados de TI</h1>
+      <p>Aponte a camera do celular para abrir uma solicitacao de suporte.</p>
+      <img src="qr-code-chamados-ti.png" alt="QR Code para abrir chamados de TI" />
+      <a href="https://david-dev0.github.io/central-chamados-ti/">
+        david-dev0.github.io/central-chamados-ti/
+      </a>
+    </main>
+  </body>
+</html>
