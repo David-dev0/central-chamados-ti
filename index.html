@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Central de Chamados TI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#inicio" aria-label="Central de Chamados TI">
+        <span class="brand-mark">TI</span>
+        <span>
+          <strong>Central de Chamados</strong>
+          <small>Suporte para lojas</small>
+        </span>
+      </a>
+
+      <button class="menu-button" type="button" aria-label="Abrir menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="nav" aria-label="Menu principal">
+        <a href="#inicio">Inicio</a>
+        <a href="#chamado">Abrir chamado</a>
+        <a href="#acompanhar">Acompanhar</a>
+        <a href="#status">Status</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" id="inicio">
+        <div class="hero-copy">
+          <p class="eyebrow">Atendimento interno de TI</p>
+          <h1>Abra sua solicitacao e antecipe o diagnostico.</h1>
+          <p>
+            Informe a loja, o setor, o equipamento afetado e descreva o problema
+            com detalhes. Assim o suporte chega na conversa ja sabendo por onde
+            comecar.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#chamado">Novo chamado</a>
+            <a class="button ghost" href="#acompanhar">Ver orientacoes</a>
+          </div>
+        </div>
+
+        <div class="support-panel" aria-label="Resumo da central">
+          <div class="panel-header">
+            <span class="pulse"></span>
+            <strong>Triagem ativa</strong>
+          </div>
+          <div class="ticket-preview">
+            <span class="ticket-tag urgent">Alta</span>
+            <h2>PDV sem comunicacao</h2>
+            <p>Loja Centro - Caixa 02 - Internet oscilando desde 08:20.</p>
+          </div>
+          <div class="panel-grid">
+            <div>
+              <strong id="todayCount">0</strong>
+              <span>chamados hoje</span>
+            </div>
+            <div>
+              <strong>24h</strong>
+              <span>historico local</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="workflow" id="acompanhar" aria-label="Como funciona">
+        <article>
+          <span>1</span>
+          <h2>Descreva</h2>
+          <p>Conte o que parou, desde quando acontece e se afeta venda, caixa ou retaguarda.</p>
+        </article>
+        <article>
+          <span>2</span>
+          <h2>Classifique</h2>
+          <p>Escolha prioridade e categoria para facilitar a ordem de atendimento.</p>
+        </article>
+        <article>
+          <span>3</span>
+          <h2>Aguarde retorno</h2>
+          <p>O chamado fica registrado no Supabase para analise antes da resposta.</p>
+        </article>
+      </section>
+
+      <section class="ticket-section" id="chamado">
+        <div class="section-heading">
+          <p class="eyebrow">Formulario</p>
+          <h2>Abrir solicitacao de suporte</h2>
+        </div>
+
+        <form class="ticket-form" id="ticketForm">
+          <div class="form-grid">
+            <label>
+              Nome completo
+              <input name="nome" type="text" autocomplete="name" placeholder="Ex.: Maria Souza" required />
+            </label>
+
+            <label>
+              Telefone ou WhatsApp
+              <input name="contato" type="tel" autocomplete="tel" placeholder="(65) 99999-9999" required />
+            </label>
+
+            <label>
+              Loja
+              <input name="loja" type="text" placeholder="Ex.: Loja Centro" required />
+            </label>
+
+            <label>
+              Setor
+              <input name="setor" type="text" placeholder="Ex.: Caixa, estoque, administrativo" required />
+            </label>
+
+            <label>
+              Categoria
+              <select name="categoria" required>
+                <option value="">Selecione</option>
+                <option>Computador</option>
+                <option>Internet / rede</option>
+                <option>Impressora</option>
+                <option>Sistema</option>
+                <option>PDV / caixa</option>
+                <option>Outro</option>
+              </select>
+            </label>
+
+            <label>
+              Prioridade
+              <select name="prioridade" required>
+                <option value="">Selecione</option>
+                <option>Baixa</option>
+                <option>Media</option>
+                <option>Alta</option>
+                <option>Critica</option>
+              </select>
+            </label>
+          </div>
+
+          <label>
+            Titulo do problema
+            <input name="titulo" type="text" placeholder="Ex.: Impressora fiscal nao imprime" required />
+          </label>
+
+          <label>
+            Descricao detalhada
+            <textarea
+              name="descricao"
+              rows="6"
+              placeholder="Descreva o erro, horario em que comecou, mensagens na tela e qualquer tentativa ja feita."
+              required
+            ></textarea>
+          </label>
+
+          <div class="form-footer">
+            <p id="formMessage" role="status" aria-live="polite"></p>
+            <button class="button primary" type="submit">Enviar chamado</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="status-section" id="status">
+        <div>
+          <p class="eyebrow">Painel rapido</p>
+          <h2>Ultimos chamados deste navegador</h2>
+        </div>
+        <div class="ticket-list" id="ticketList">
+          <p class="empty">Nenhum chamado enviado ainda por aqui.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>Central de Chamados TI</span>
+      <span>Dados enviados para Supabase</span>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>
