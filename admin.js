@@ -12,6 +12,7 @@ const logoutButton = document.querySelector("#logoutButton");
 const refreshButton = document.querySelector("#refreshButton");
 const searchInput = document.querySelector("#searchInput");
 const statusFilter = document.querySelector("#statusFilter");
+const diagnosticBox = document.querySelector("#diagnosticBox");
 const openCount = document.querySelector("#openCount");
 const progressCount = document.querySelector("#progressCount");
 const doneCount = document.querySelector("#doneCount");
@@ -29,6 +30,7 @@ loginForm.addEventListener("submit", async (event) => {
     saveSession(session);
     loginForm.reset();
     showBoard();
+    setDiagnostic(`Login OK: ${session.email}. Carregando chamados...`, "success");
     await loadTickets();
   } catch (error) {
     setLoginMessage(error.message, "error");
@@ -108,7 +110,10 @@ async function loadTickets() {
     });
 
     const response = await fetch(`${SUPABASE_URL}/rest/v1/${TABLE_NAME}?${params}`, {
-      headers: authHeaders(session.access_token),
+      headers: {
+        ...authHeaders(session.access_token),
+        Prefer: "count=exact",
+      },
     });
 
     const data = await response.json().catch(() => []);
@@ -118,8 +123,14 @@ async function loadTickets() {
     }
 
     tickets = data;
+    const visibleCount = getVisibleCount(response, data.length);
+    setDiagnostic(
+      `Conectado como ${session.email || "usuario autenticado"}. Chamados visiveis para este login: ${visibleCount}.`,
+      visibleCount > 0 ? "success" : "warning",
+    );
     renderTickets();
   } catch (error) {
+    setDiagnostic(`Falha ao carregar chamados: ${error.message}`, "error");
     setListMessage(error.message);
   }
 }
@@ -220,7 +231,9 @@ function renderTickets() {
   updateStats(tickets);
 
   if (!filtered.length) {
-    setListMessage("Nenhum chamado encontrado.");
+    setListMessage(
+      "Nenhum chamado visivel. Se eles aparecem no Supabase, execute o SQL de permissoes e confirme que voce entrou com um usuario de Authentication > Users.",
+    );
     return;
   }
 
@@ -267,6 +280,11 @@ function setListMessage(message) {
   adminTicketList.innerHTML = `<p class="empty">${escapeHtml(message)}</p>`;
 }
 
+function setDiagnostic(message, type) {
+  diagnosticBox.textContent = message;
+  diagnosticBox.className = `diagnostic-box ${type || ""}`.trim();
+}
+
 function setLoginMessage(text, type) {
   loginMessage.textContent = text;
   loginMessage.className = type;
@@ -282,6 +300,16 @@ function getSession() {
   } catch {
     return null;
   }
+}
+
+function getVisibleCount(response, fallback) {
+  const range = response.headers.get("content-range");
+  if (!range || !range.includes("/")) {
+    return fallback;
+  }
+
+  const count = Number(range.split("/").pop());
+  return Number.isFinite(count) ? count : fallback;
 }
 
 function escapeHtml(value) {

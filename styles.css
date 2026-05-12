@@ -468,6 +468,34 @@ textarea:focus {
   gap: 18px;
 }
 
+.diagnostic-box {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 14px 16px;
+  background: var(--surface);
+  color: var(--muted);
+  font-weight: 800;
+  line-height: 1.5;
+}
+
+.diagnostic-box.success {
+  border-color: rgba(15, 118, 110, 0.28);
+  background: rgba(15, 118, 110, 0.08);
+  color: var(--primary-dark);
+}
+
+.diagnostic-box.warning {
+  border-color: rgba(245, 158, 11, 0.34);
+  background: rgba(245, 158, 11, 0.1);
+  color: #6d4a05;
+}
+
+.diagnostic-box.error {
+  border-color: rgba(220, 38, 38, 0.26);
+  background: rgba(220, 38, 38, 0.08);
+  color: var(--danger);
+}
+
 .admin-stats,
 .admin-toolbar {
   display: grid;
